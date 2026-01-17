@@ -11,7 +11,7 @@
       "name": "hello",
       "source": "./plugins/hello",
       "description": "Minimal hello-world plugin for testing the REMI-Agents marketplace",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }
