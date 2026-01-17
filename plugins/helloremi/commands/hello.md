@@ -1,5 +1,10 @@
 ---
-description: Print a minimal hello message (marketplace smoke test).
+description: Say hello from REMI (smoke test)
 ---
 
-Reply with a short hello message from REMI and include the text the user passed in `$ARGUMENTS` (if any).
+Respond with a single line.
+
+- If the user provided arguments, respond exactly:
+  `Hello from REMI. You said: "$ARGUMENTS"`
+- If the user provided no arguments, respond exactly:
+  `Hello from REMI.`
