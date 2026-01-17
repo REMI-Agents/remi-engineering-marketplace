@@ -1,0 +1,17 @@
+{
+  "name": "remi-engineering",
+  "owner": {
+    "name": "REMI-Agents"
+  },
+  "metadata": {
+    "description": "Plugins and utilities maintained by REMI-Agents for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "hello",
+      "source": "./plugins/hello",
+      "description": "Minimal hello-world plugin for testing the REMI-Agents marketplace",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "name": "hello",
+  "description": "Minimal hello-world plugin for testing installation from the remi-engineering marketplace",
+  "version": "0.1.0"
+}
