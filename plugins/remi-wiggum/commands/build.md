@@ -1,16 +1,19 @@
 ---
-description: Implement the top plan item, run tests, update plan, commit & push
+description: Implement the top plan item, add tests, update plan/test plan (no auto-push)
 ---
 
-Study `.wiggum/specs/*` and `.wiggum/IMPLEMENTATION_PLAN.md`. Pick the single most important incomplete item.
+Study `.wiggum/specs/*`, `.wiggum/IMPLEMENTATION_PLAN.md`, and `.wiggum/TEST_PLAN.md`. Pick the single most important incomplete item.
 
-Before making changes, search the codebase ("don't assume not implemented"). Implement the item completely, run the appropriate tests per `.wiggum/AGENTS.md`, and update `.wiggum/IMPLEMENTATION_PLAN.md` with any learnings.
+Before making changes, search the codebase ("don't assume not implemented"). Implement the item completely.
 
-If tests pass:
-- `git add -A`
-- `git commit` with a message explaining the change
-- `git push`
+Testing expectations:
+- Prefer adding/updating AUTOMATED tests for the new behavior.
+- Run the appropriate baseline commands per `.wiggum/AGENTS.md` (and/or `.wiggum/config.json`) as a sanity check.
+- Keep `.wiggum/TEST_PLAN.md` honest: move items from “planned” to “covered” only when tests exist or checks have been performed.
 
-If tests fail:
-- fix them (including unrelated failures)
-- keep the plan updated
+Always update:
+- `.wiggum/IMPLEMENTATION_PLAN.md` with progress/learnings
+- `.wiggum/TEST_PLAN.md` with what’s now covered and what remains
+
+Do NOT automatically push to git remotes.
+If you create a commit, it should be local-only unless the user explicitly asks to push.

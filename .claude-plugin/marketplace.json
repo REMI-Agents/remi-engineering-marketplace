@@ -17,7 +17,7 @@
       "name": "remi-wiggum",
       "source": "./plugins/remi-wiggum",
       "description": "Scaffold and run a Ralph/Wiggum-style iterative loop using a .wiggum/ folder",
-      "version": "0.1.0"
+      "version": "0.2.0"
     }
   ]
 }
