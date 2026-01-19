@@ -38,7 +38,14 @@ It MUST include:
 - a completion promise string (exact literal)
 - backend verify commands (array of strings)
 - frontend verify commands (array of strings)
+- an execution engine configuration (Claude vs Codex) so the loop can run on a laptop OR a VPS
 - a boolean (or string policy) indicating that some manual verification may remain, but automated tests are preferred
+
+Engine fields (portable runner):
+- `engine.name`: one of `claude` or `codex`
+- `engine.model`: optional model identifier (e.g., `gpt-5.2`)
+- `engine.command`: an array of strings representing the command to run the agent in non-interactive mode
+  - The runner will append the prompt file via stdin (recommended), so the command should read from stdin.
 
 Auto-detect and populate sensible defaults:
 - backend (poetry + pytest):
@@ -48,6 +55,17 @@ Auto-detect and populate sensible defaults:
 - frontend (pnpm):
   - `pnpm lint`
   - `pnpm build`
+
+Engine defaults:
+- If `claude` is available, default to:
+  - name: `claude`
+  - command: `["claude","-p"]`
+- If `codex` is available (e.g. on a VPS), default to:
+  - name: `codex`
+  - model: `gpt-5.2`
+  - command: a placeholder that the user may need to adjust, e.g. `["codex", "--model", "gpt-5.2"]`
+
+If you cannot confirm the exact Codex flags in this repo, write a safe placeholder and clearly label it as user-editable.
 
 ### 3) `.wiggum/IMPLEMENTATION_PLAN.md`
 Initialize as an empty plan with a heading and a short instruction that it is disposable and should be kept current.
@@ -100,13 +118,19 @@ Otherwise:
 - do NOT output the promise
 - update `.wiggum/TEST_PLAN.md` and/or `.wiggum/IMPLEMENTATION_PLAN.md` with what failed and what to do next
 
+Note: PROMPT files should be engine-agnostic (no references to Claude-specific flags). The runner chooses Claude vs Codex.
+
 ### 9) `.wiggum/loop.sh`
 Create an executable bash script that:
 - accepts `plan`, `build`, or `verify` and an optional max-iterations number
-- runs `claude -p` with the corresponding `.wiggum/PROMPT_*.md`
+- is PORTABLE: it must not hardcode Claude
+  - read `.wiggum/config.json` to decide which engine to run (Claude vs Codex)
+  - execute the configured engine command (array) and feed the prompt file via stdin
 - writes logs under `.wiggum/runs/<timestamp>/iter-###/<phase>.log`
 - after each iteration, checks logs for the completion promise and stops if found
 - prints a short usage message
+
+If you need to parse JSON in bash, use a tiny embedded python snippet (preferred) rather than adding a dependency on `jq`.
 
 Do NOT default to `--dangerously-skip-permissions`. If you include it, make it opt-in via an env var.
 

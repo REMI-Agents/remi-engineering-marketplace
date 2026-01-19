@@ -17,3 +17,5 @@ Always update:
 
 Do NOT automatically push to git remotes.
 If you create a commit, it should be local-only unless the user explicitly asks to push.
+
+Portability note: Do not assume a specific agent CLI. This loop may run under Claude CLI or Codex CLI depending on `.wiggum/config.json`.
